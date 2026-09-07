@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rajat Kumar — SDE 2 building Go backends, distributed systems, and AWS platform infrastructure. Sony, Gojek, Multitv.">
+  <meta name="author" content="Rajat Kumar">
+  <title>Rajat Kumar — Backend Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #06080d;
+      --bg-elevated: #0c1018;
+      --surface: #111827;
+      --surface-hover: #1a2332;
+      --border: rgba(148, 163, 184, 0.12);
+      --border-strong: rgba(148, 163, 184, 0.22);
+      --text: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #22d3ee;
+      --accent-dim: rgba(34, 211, 238, 0.15);
+      --accent-glow: rgba(34, 211, 238, 0.35);
+      --green: #34d399;
+      --purple: #a78bfa;
+      --orange: #fb923c;
+      --font: "DM Sans", system-ui, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, monospace;
+      --radius: 14px;
+      --max: 1080px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 70%);
+    }
+
+    .bg-glow {
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 65%);
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      padding: 0.85rem 0;
+      background: rgba(6, 8, 13, 0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-family: var(--mono);
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--text-muted); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); background: var(--surface); }
+
+    .nav-cta {
+      background: var(--accent) !important;
+      color: var(--bg) !important;
+      font-weight: 600 !important;
+      margin-left: 0.5rem;
+    }
+
+    .nav-cta:hover { opacity: 0.9; background: var(--accent) !important; }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.4rem 0.65rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 8rem 0 4rem;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-dim);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      border-radius: 100px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--accent), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-role {
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-bio {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin-bottom: 2rem;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover { box-shadow: 0 0 30px var(--accent-glow); transform: translateY(-1px); }
+
+    .btn-ghost {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border-strong);
+    }
+
+    .btn-ghost:hover { background: var(--surface-hover); border-color: var(--accent); }
+
+    .social-row {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-row a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.2s;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--mono);
+    }
+
+    .social-row a:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* Hero card */
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--purple), var(--green));
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dot { width: 11px; height: 11px; border-radius: 50%; }
+    .dot-r { background: #ef4444; }
+    .dot-y { background: #eab308; }
+    .dot-g { background: #22c55e; }
+
+    .terminal-title {
+      margin-left: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .terminal-body {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    .terminal-body .cmd { color: var(--accent); }
+    .terminal-body .key { color: var(--purple); }
+    .terminal-body .val { color: var(--green); }
+    .terminal-body .comment { color: var(--text-muted); }
+
+    /* Metrics */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: -2rem 0 4rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .metric {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .metric:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    .metric-num {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: var(--mono);
+      letter-spacing: -0.02em;
+    }
+
+    .metric-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+      font-weight: 500;
+    }
+
+    /* Sections */
+    section { padding: 4rem 0; }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Experience */
+    .timeline { position: relative; }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--purple), transparent);
+    }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .exp-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .exp-card:hover { border-color: var(--border-strong); }
+
+    .exp-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .exp-title { font-size: 1.1rem; font-weight: 700; }
+    .exp-company { color: var(--accent); font-weight: 600; }
+    .exp-date {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: var(--bg-elevated);
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .exp-location {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .exp-bullets li {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      padding-left: 1.1rem;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    .exp-bullets li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+    }
+
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      border-color: rgba(34, 211, 238, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-card.featured {
+      grid-column: span 2;
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.06), rgba(167, 139, 250, 0.06));
+      border-color: rgba(34, 211, 238, 0.2);
+    }
+
+    .project-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .project-card .company {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      flex: 1;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .project-metric {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--green);
+      background: rgba(52, 211, 153, 0.1);
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+    }
+
+    .arch-line {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      background: var(--bg-elevated);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-top: 0.75rem;
+      line-height: 1.7;
+      border: 1px solid var(--border);
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+
+    .skill-group h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.85rem;
+      font-family: var(--mono);
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .skill-chip {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      background: var(--bg-elevated);
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    /* Education + Contact */
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .info-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .edu-item { margin-bottom: 1rem; }
+    .edu-item:last-child { margin-bottom: 0; }
+    .edu-degree { font-weight: 600; font-size: 0.95rem; }
+    .edu-school { color: var(--text-secondary); font-size: 0.88rem; }
+    .edu-year { font-family: var(--mono); font-size: 0.78rem; color: var(--text-muted); }
+
+    .contact-list { list-style: none; }
+    .contact-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .contact-list li:last-child { border-bottom: none; }
+    .contact-list .icon { color: var(--accent); font-family: var(--mono); font-size: 0.75rem; width: 28px; }
+    .contact-list a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+    .contact-list a:hover { color: var(--accent); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      margin-top: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-card { order: -1; }
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: span 1; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .bottom-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        background: var(--bg-elevated);
+        border-bottom: 1px solid var(--border);
+        padding: 1rem;
+      }
+      .menu-btn { display: block; }
+      .hero { padding-top: 6rem; min-height: auto; }
+      .metrics { grid-template-columns: 1fr 1fr; margin-top: 2rem; }
+    }
+
+    @media print {
+      nav, .bg-grid, .bg-glow, .menu-btn { display: none; }
+      body { background: white; color: #111; }
+      .hero { min-height: auto; padding: 2rem 0; }
+      .metric, .exp-card, .project-card, .skill-group, .info-card {
+        break-inside: avoid;
+        border-color: #ddd;
+        background: #f9fafb;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="logo">rajat<span>.dev</span></a>
+    <button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="Rajat_Resume.pdf" class="nav-cta" download>Resume ↓</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          Open to opportunities · Bengaluru, India
+        </div>
+        <h1>Rajat <span class="highlight">Kumar</span></h1>
+        <p class="hero-role">SDE 2 · Go · Distributed Systems · AWS</p>
+        <p class="hero-bio">
+          Backend engineer with 5+ years building production Go microservices, event pipelines, and multi-account AWS platform infrastructure. I own systems end to end — design, code, deploy, and on-call.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Get in Touch</a>
+          <a href="#projects" class="btn btn-ghost">View Work</a>
+          <a href="Rajat_Resume.pdf" class="btn btn-ghost" download>Download Resume</a>
+        </div>
+        <div class="social-row">
+          <a href="https://linkedin.com/in/rajat-kumar-07765b56" target="_blank" rel="noopener" title="LinkedIn">in</a>
+          <a href="https://github.com/rajat2130" target="_blank" rel="noopener" title="GitHub">gh</a>
+          <a href="mailto:kumar.rajat2130@gmail.com" title="Email">@</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="terminal-header">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
+          <span class="terminal-title">rajat@backend — zsh</span>
+        </div>
+        <div class="terminal-body">
+          <span class="cmd">$</span> whoami<br>
+          <span class="val">rajat_kumar</span> — sde2_backend_engineer<br><br>
+          <span class="cmd">$</span> cat current_stack.json<br>
+          {<br>
+          &nbsp;&nbsp;<span class="key">"lang"</span>: <span class="val">"Go"</span>,<br>
+          &nbsp;&nbsp;<span class="key">"cloud"</span>: <span class="val">"AWS"</span>,<br>
+          &nbsp;&nbsp;<span class="key">"messaging"</span>: <span class="val">["Kafka","SQS"]</span>,<br>
+          &nbsp;&nbsp;<span class="key">"observability"</span>: <span class="val">"Grafana/Loki/Mimir"</span>,<br>
+          &nbsp;&nbsp;<span class="key">"focus"</span>: <span class="val">"distributed_systems"</span><br>
+          }<br><br>
+          <span class="cmd">$</span> uptime --production<br>
+          <span class="val">99.95%</span> <span class="comment"># Multitv OTT · 10M+ users</span><br>
+          <span class="val">10K+ rps</span> <span class="comment"># Gojek · P99 &lt; 50ms</span><br>
+          <span class="val">50+ consumers</span> <span class="comment"># Sony · Kafka pipeline</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<div class="wrap">
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-num">5+</div>
+      <div class="metric-label">Years Experience</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">10K+</div>
+      <div class="metric-label">Req/sec at Gojek</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">10M+</div>
+      <div class="metric-label">Users at Multitv</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">99.95%</div>
+      <div class="metric-label">Production Uptime</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <p class="section-label">// about</p>
+    <h2 class="section-title">Building backends that scale in production</h2>
+    <p class="section-desc">
+      I specialize in Go microservices, event-driven architectures, and AWS platform engineering. Currently at Sony (Cloud Raptor) building shared libraries, observability platforms, and multi-account secrets rotation. Previously shipped high-throughput systems at Gojek and OTT backends at Multitv.
+    </p>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <p class="section-label">// experience</p>
+    <h2 class="section-title">Where I've built</h2>
+    <p class="section-desc">Consulting and product engineering across fintech-scale ride-hailing, media streaming, and enterprise platform teams.</p>
+
+    <div class="timeline">
+
+      <div class="exp-item">
+        <div class="exp-dot">🎮</div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-title">SDE 2 — <span class="exp-company">Cloud Raptor (Sony India)</span></div>
+            </div>
+            <span class="exp-date">Sep 2025 – Present</span>
+          </div>
+          <div class="exp-location">Bengaluru · Platform Engineering</div>
+          <ul class="exp-bullets">
+            <li>Built <strong>SIE-IntSer-common</strong> — Sony's shared Go library with Snowflake StructScan sources, Kafka/SQS/S3 pipeline SDKs, and lookuplite reference caches</li>
+            <li>Delivered Snowflake → Kafka pipeline for Sales/Revenue Recognition with Protobuf events to <strong>50+ downstream consumers</strong></li>
+            <li>Built <strong>ops-metrics-platform</strong> in Go — DORA metrics from GitLab, ArgoCD, Grafana → Loki/Mimir via EKS CronJobs and ARM64 Lambda</li>
+            <li>Engineered hub-spoke <strong>secrets rotation</strong> across 4 AWS accounts with Step Functions, DynamoDB, and per-provider Lambda workers</li>
+            <li>Terraform smoke plans with live AWS checks — <strong>95% deployment risk reduction</strong></li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">Go</span><span class="tag">Kafka</span><span class="tag">Snowflake</span>
+            <span class="tag">Step Functions</span><span class="tag">Terraform</span><span class="tag">EKS</span>
+            <span class="tag">Grafana</span><span class="tag">Protobuf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-dot">🛵</div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-title">Senior Software Engineer — <span class="exp-company">Codevyasa (Gojek)</span></div>
+            </div>
+            <span class="exp-date">Feb 2025 – Sep 2025</span>
+          </div>
+          <div class="exp-location">Bengaluru · Driver Incentives & Rewards</div>
+          <ul class="exp-bullets">
+            <li>Built <strong>8+ Go microservices</strong> (Gin + gRPC) for reward calculation serving millions of drivers across Southeast Asia</li>
+            <li>Achieved <strong>10K+ req/sec</strong> with <strong>P99 under 50ms</strong> using Redis caching on PostgreSQL and Kafka</li>
+            <li>Bulk scheme upload for <strong>1M+ schemes</strong> — CSV parsing, goroutine worker pools, atomic writes, load testing</li>
+            <li>Kafka consumers with custom groups — message loss <strong>under 0.01%</strong>; MTTR down <strong>60%</strong></li>
+            <li>Protobuf vendoring via ProtoVend across <strong>15+ teams</strong></li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">Go</span><span class="tag">gRPC</span><span class="tag">Kafka</span>
+            <span class="tag">Redis</span><span class="tag">PostgreSQL</span><span class="tag">Prometheus</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-dot">📺</div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-title">Software Development Engineer — <span class="exp-company">Multitv Tech Solutions</span></div>
+            </div>
+            <span class="exp-date">Dec 2022 – Jan 2025</span>
+          </div>
+          <div class="exp-location">Gurugram · OTT Backend (ALT Balaji, Art of Living)</div>
+          <ul class="exp-bullets">
+            <li>Led backend for OTT apps — auth, live/VOD, subscriptions — <strong>10M+ users</strong>, <strong>99.95% uptime</strong></li>
+            <li>HMAC CDN streaming auth for <strong>50M+ client requests</strong></li>
+            <li>PTI news feed pipeline: S3/XML ingest, image resize, Alexa skill at <strong>5K+ req/sec</strong></li>
+            <li>Razorpay, Apple, Google billing — payment failures down <strong>40%</strong></li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">Go</span><span class="tag">gRPC</span><span class="tag">MySQL</span>
+            <span class="tag">MongoDB</span><span class="tag">RabbitMQ</span><span class="tag">AWS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-dot">⚙️</div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-title">Trainee Software Engineer — <span class="exp-company">Mirafra Technologies</span></div>
+            </div>
+            <span class="exp-date">Mar 2022 – Nov 2022</span>
+          </div>
+          <div class="exp-location">Bengaluru · Asset Management Platform</div>
+          <ul class="exp-bullets">
+            <li>Built Mirauserlab asset-management backend in Go, Gin, MySQL — REST APIs for employees, assets, tracking, and reports</li>
+            <li>Designed data models and API contracts for asset register, assign, and audit flows</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">Go</span><span class="tag">Gin</span><span class="tag">MySQL</span><span class="tag">REST</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <p class="section-label">// system design</p>
+    <h2 class="section-title">Featured systems</h2>
+    <p class="section-desc">Architecture highlights from production systems I've designed and shipped.</p>
+
+    <div class="projects-grid">
+
+      <div class="project-card featured">
+        <div class="project-icon">🔐</div>
+        <h3>Secrets Rotation Hub-Spoke</h3>
+        <div class="company">Sony · Multi-Account AWS</div>
+        <p>Central orchestration with Step Functions, DynamoDB registry, and per-provider Lambda workers (Grafana, GitLab, Mesh Konnect, Confluent). Config digests, fencing tokens, and create-before-delete safety. Terraform smoke runbooks across Platform, Payment, Security, and Platform-Infra accounts.</p>
+        <span class="project-metric">95% deployment risk reduction · 8/8 Grafana smokes</span>
+        <div class="arch-line">Hub SFN → DynamoDB lock → SQS → Worker Lambda → Provider API → SM AWSPENDING → AWSCURRENT</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">📊</div>
+        <h3>Snowflake → Kafka Pipeline</h3>
+        <div class="company">Sony · Revenue Recognition</div>
+        <p>Batch extract from Snowflake via intser-common StructScan, transform to Protobuf events, publish to Kafka for 50+ downstream consumers with schema-stable contracts.</p>
+        <span class="project-metric">50+ consumers · Protobuf schema</span>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">📈</div>
+        <h3>ops-metrics-platform</h3>
+        <div class="company">Sony · DORA Observability</div>
+        <p>Go collectors pulling deployment and reliability data from GitLab, ArgoCD, and Grafana APIs into Loki/Mimir. EKS CronJobs + ARM64 Lambda on SQS with DLQ.</p>
+        <span class="project-metric">EKS + Lambda ARM64 · Grafana Cloud</span>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">🏎️</div>
+        <h3>Driver Incentives Platform</h3>
+        <div class="company">Gojek · 8+ Microservices</div>
+        <p>HLD for reward calculation at scale — gRPC internal comms, Kafka event log, Redis hot cache, PostgreSQL source of truth. Idempotent pipelines with goroutine worker pools.</p>
+        <span class="project-metric">10K+ RPS · P99 &lt; 50ms</span>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">🎬</div>
+        <h3>OTT Streaming Backend</h3>
+        <div class="company">Multitv · ALT Balaji</div>
+        <p>Multi-tenant REST/gRPC APIs with Redis caching, HMAC CDN auth, RabbitMQ async jobs. Live streaming, VOD, and subscription billing for 10M+ users.</p>
+        <span class="project-metric">10M+ users · 99.95% uptime</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <p class="section-label">// skills</p>
+    <h2 class="section-title">Technical toolkit</h2>
+    <p class="section-desc">Deep in Go and distributed systems. Comfortable across the full stack from API design to Terraform and on-call.</p>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>Languages & Runtime</h4>
+        <div class="skill-list">
+          <span class="skill-chip">Go</span>
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">Bash</span>
+          <span class="skill-chip">Goroutines</span>
+          <span class="skill-chip">Channels</span>
+          <span class="skill-chip">context</span>
+          <span class="skill-chip">pprof</span>
+          <span class="skill-chip">Worker Pools</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Backend & Architecture</h4>
+        <div class="skill-list">
+          <span class="skill-chip">Microservices</span>
+          <span class="skill-chip">gRPC</span>
+          <span class="skill-chip">REST</span>
+          <span class="skill-chip">Protobuf</span>
+          <span class="skill-chip">Event-Driven</span>
+          <span class="skill-chip">Clean Architecture</span>
+          <span class="skill-chip">DDD</span>
+          <span class="skill-chip">Idempotency</span>
+          <span class="skill-chip">CQRS</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Data & Messaging</h4>
+        <div class="skill-list">
+          <span class="skill-chip">PostgreSQL</span>
+          <span class="skill-chip">MySQL</span>
+          <span class="skill-chip">MongoDB</span>
+          <span class="skill-chip">Redis</span>
+          <span class="skill-chip">Kafka</span>
+          <span class="skill-chip">RabbitMQ</span>
+          <span class="skill-chip">DynamoDB</span>
+          <span class="skill-chip">Snowflake</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Cloud & Infra</h4>
+        <div class="skill-list">
+          <span class="skill-chip">AWS Lambda</span>
+          <span class="skill-chip">SQS</span>
+          <span class="skill-chip">EKS</span>
+          <span class="skill-chip">Step Functions</span>
+          <span class="skill-chip">Secrets Manager</span>
+          <span class="skill-chip">KMS</span>
+          <span class="skill-chip">Terraform</span>
+          <span class="skill-chip">Docker</span>
+          <span class="skill-chip">Kubernetes</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Observability & Delivery</h4>
+        <div class="skill-list">
+          <span class="skill-chip">Prometheus</span>
+          <span class="skill-chip">Grafana</span>
+          <span class="skill-chip">Loki</span>
+          <span class="skill-chip">Mimir</span>
+          <span class="skill-chip">OpenTelemetry</span>
+          <span class="skill-chip">GitLab CI</span>
+          <span class="skill-chip">ArgoCD</span>
+          <span class="skill-chip">DORA Metrics</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Testing & Practices</h4>
+        <div class="skill-list">
+          <span class="skill-chip">Table-Driven Tests</span>
+          <span class="skill-chip">Integration Tests</span>
+          <span class="skill-chip">Load Testing</span>
+          <span class="skill-chip">Testify</span>
+          <span class="skill-chip">Mockery</span>
+          <span class="skill-chip">Smoke Testing</span>
+          <span class="skill-chip">HLD / LLD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION + CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <p class="section-label">// connect</p>
+    <h2 class="section-title">Let's talk</h2>
+    <p class="section-desc">Open to backend engineering roles in distributed systems, platform engineering, and high-scale Go teams.</p>
+
+    <div class="bottom-grid">
+      <div class="info-card">
+        <h3>Education</h3>
+        <div class="edu-item">
+          <div class="edu-degree">B.Tech, Information Technology</div>
+          <div class="edu-school">Punjab Technical University</div>
+          <div class="edu-year">2018 – 2021</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Diploma, Computer Science</div>
+          <div class="edu-school">Haryana State Technical Education Society (HSTES)</div>
+          <div class="edu-year">2015 – 2017</div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>Contact</h3>
+        <ul class="contact-list">
+          <li>
+            <span class="icon">@</span>
+            <a href="mailto:kumar.rajat2130@gmail.com">kumar.rajat2130@gmail.com</a>
+          </li>
+          <li>
+            <span class="icon">tel</span>
+            <a href="tel:+917876874729">+91 78768 74729</a>
+          </li>
+          <li>
+            <span class="icon">in</span>
+            <a href="https://linkedin.com/in/rajat-kumar-07765b56" target="_blank" rel="noopener">linkedin.com/in/rajat-kumar-07765b56</a>
+          </li>
+          <li>
+            <span class="icon">gh</span>
+            <a href="https://github.com/rajat2130" target="_blank" rel="noopener">github.com/rajat2130</a>
+          </li>
+          <li>
+            <span class="icon">loc</span>
+            <span style="color: var(--text-secondary)">Bengaluru, Karnataka, India</span>
+          </li>
+        </ul>
+        <div style="margin-top: 1.25rem;">
+          <a href="Rajat_Resume.pdf" class="btn btn-primary" download style="width: 100%; justify-content: center;">Download Resume PDF</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Built by <a href="mailto:kumar.rajat2130@gmail.com">Rajat Kumar</a> · SDE 2 · Go Backend Engineer · 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
