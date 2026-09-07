@@ -142,10 +142,23 @@
       background: none;
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 0.4rem 0.65rem;
+      padding: 0.55rem 0.65rem;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 1.1rem;
+      width: 40px;
+      height: 36px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .menu-btn span {
+      display: block;
+      width: 16px;
+      height: 2px;
+      background: var(--text-secondary);
+      border-radius: 1px;
     }
 
     /* Hero */
@@ -266,20 +279,232 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
       height: 40px;
+      padding: 0 0.85rem;
       border-radius: 10px;
       background: var(--surface);
       border: 1px solid var(--border);
       color: var(--text-secondary);
       text-decoration: none;
       transition: all 0.2s;
-      font-size: 0.75rem;
-      font-weight: 600;
-      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 500;
     }
 
     .social-row a:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* Tech logo cloud */
+    .tech-cloud {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .tech-cloud-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .tech-logos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .tech-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.25s;
+      position: relative;
+    }
+
+    .tech-logo img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      filter: grayscale(20%);
+      transition: filter 0.25s, transform 0.25s;
+    }
+
+    .tech-logo:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(34, 211, 238, 0.15);
+    }
+
+    .tech-logo:hover img {
+      filter: grayscale(0%);
+      transform: scale(1.1);
+    }
+
+    .tech-logo::after {
+      content: attr(data-name);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.68rem;
+      font-family: var(--mono);
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .tech-logo:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Marquee strip */
+    .tech-marquee-wrap {
+      overflow: hidden;
+      margin: 3rem 0 1rem;
+      padding: 1.25rem 0;
+      border-block: 1px solid var(--border);
+      background: rgba(17, 24, 39, 0.5);
+      mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+    }
+
+    .tech-marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee 40s linear infinite;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .tech-marquee:hover { animation-play-state: paused; }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .marquee-item img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    /* Skill tiles with logos */
+    .skill-tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .skill-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: all 0.25s;
+      cursor: default;
+    }
+
+    .skill-tile:hover {
+      border-color: rgba(34, 211, 238, 0.45);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      background: var(--surface-hover);
+    }
+
+    .skill-tile img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+
+    .skill-tile span {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-align: center;
+      font-family: var(--mono);
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .stack-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .stack-icon img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+    }
+
+    .stack-icon:hover {
+      transform: scale(1.15);
+      border-color: var(--accent);
+    }
+
+    .exp-tags .tag-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .exp-tags .tag-icon img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+    }
 
     /* Hero card */
     .hero-card {
@@ -375,7 +600,7 @@
       font-family: var(--mono);
       font-size: 0.75rem;
       font-weight: 600;
-      color: var(--accent);
+      color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.12em;
       margin-bottom: 0.5rem;
@@ -424,7 +649,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent);
       z-index: 1;
       flex-shrink: 0;
     }
@@ -482,10 +710,10 @@
     }
 
     .exp-bullets li::before {
-      content: "→";
+      content: "–";
       position: absolute;
       left: 0;
-      color: var(--accent);
+      color: var(--text-muted);
       font-family: var(--mono);
       font-size: 0.8rem;
     }
@@ -544,7 +772,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.02em;
       margin-bottom: 1rem;
     }
 
@@ -707,7 +939,7 @@
         border-bottom: 1px solid var(--border);
         padding: 1rem;
       }
-      .menu-btn { display: block; }
+      .menu-btn { display: flex; }
       .hero { padding-top: 6rem; min-height: auto; }
       .metrics { grid-template-columns: 1fr 1fr; margin-top: 2rem; }
     }
@@ -732,7 +964,9 @@
 <nav>
   <div class="wrap">
     <a href="#" class="logo">rajat<span>.dev</span></a>
-    <button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">☰</button>
+    <button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -751,7 +985,7 @@
       <div>
         <div class="status-pill">
           <span class="status-dot"></span>
-          Open to opportunities · Bengaluru, India
+          Open to roles · Bengaluru, India
         </div>
         <h1>Rajat <span class="highlight">Kumar</span></h1>
         <p class="hero-role">SDE 2 · Go · Distributed Systems · AWS</p>
@@ -764,9 +998,26 @@
           <a href="Rajat_Resume.pdf" class="btn btn-ghost" download>Download Resume</a>
         </div>
         <div class="social-row">
-          <a href="https://linkedin.com/in/rajat-kumar-07765b56" target="_blank" rel="noopener" title="LinkedIn">in</a>
-          <a href="https://github.com/rajat2130" target="_blank" rel="noopener" title="GitHub">gh</a>
-          <a href="mailto:kumar.rajat2130@gmail.com" title="Email">@</a>
+          <a href="https://linkedin.com/in/rajat-kumar-07765b56" target="_blank" rel="noopener" title="LinkedIn">LinkedIn</a>
+          <a href="https://github.com/rajat2130" target="_blank" rel="noopener" title="GitHub">GitHub</a>
+          <a href="mailto:kumar.rajat2130@gmail.com" title="Email">Email</a>
+        </div>
+
+        <div class="tech-cloud">
+          <div class="tech-cloud-label">Core stack</div>
+          <div class="tech-logos">
+            <div class="tech-logo" data-name="Go"><img src="https://cdn.simpleicons.org/go/00ADD8" alt="Go" loading="lazy"></div>
+            <div class="tech-logo" data-name="gRPC"><img src="https://www.vectorlogo.zone/logos/grpcio/grpcio-icon.svg" alt="gRPC" loading="lazy"></div>
+            <div class="tech-logo" data-name="AWS"><img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" alt="AWS" loading="lazy"></div>
+            <div class="tech-logo" data-name="Kafka"><img src="https://cdn.simpleicons.org/apachekafka/FFFFFF" alt="Kafka" loading="lazy"></div>
+            <div class="tech-logo" data-name="Kubernetes"><img src="https://cdn.simpleicons.org/kubernetes/326CE5" alt="Kubernetes" loading="lazy"></div>
+            <div class="tech-logo" data-name="Terraform"><img src="https://cdn.simpleicons.org/terraform/844FBA" alt="Terraform" loading="lazy"></div>
+            <div class="tech-logo" data-name="Docker"><img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" loading="lazy"></div>
+            <div class="tech-logo" data-name="PostgreSQL"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" loading="lazy"></div>
+            <div class="tech-logo" data-name="Redis"><img src="https://cdn.simpleicons.org/redis/FF4438" alt="Redis" loading="lazy"></div>
+            <div class="tech-logo" data-name="Grafana"><img src="https://cdn.simpleicons.org/grafana/F46800" alt="Grafana" loading="lazy"></div>
+            <div class="tech-logo" data-name="Python"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" loading="lazy"></div>
+          </div>
         </div>
       </div>
 
@@ -820,10 +1071,55 @@
   </div>
 </div>
 
+<!-- TECH MARQUEE -->
+<div class="tech-marquee-wrap">
+  <div class="tech-marquee" aria-hidden="true">
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/go/00ADD8" alt=""> Go</div>
+    <div class="marquee-item"><img src="https://www.vectorlogo.zone/logos/grpcio/grpcio-icon.svg" alt=""> gRPC</div>
+    <div class="marquee-item"><img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" alt=""> AWS</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/apachekafka/FFFFFF" alt=""> Kafka</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/kubernetes/326CE5" alt=""> Kubernetes</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/terraform/844FBA" alt=""> Terraform</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/docker/2496ED" alt=""> Docker</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt=""> PostgreSQL</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/redis/FF4438" alt=""> Redis</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/mongodb/47A248" alt=""> MongoDB</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt=""> MySQL</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/rabbitmq/FF6600" alt=""> RabbitMQ</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/prometheus/E6522C" alt=""> Prometheus</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/grafana/F46800" alt=""> Grafana</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/gitlab/FC6D26" alt=""> GitLab</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/snowflake/29B5E8" alt=""> Snowflake</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/python/3776AB" alt=""> Python</div>
+    <div class="marquee-item"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpolygon fill='%234285F4' points='24,2 42,13 42,35 24,46 6,35 6,13'/%3E%3Cpolygon fill='%2334A853' points='24,10 36,17 36,31 24,38 12,31 12,17'/%3E%3Cpolygon fill='%23FBBC05' points='24,18 30,22 30,28 24,32 18,28 18,22'/%3E%3C/svg%3E" alt=""> Protobuf</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/github/FFFFFF" alt=""> GitHub</div>
+    <!-- duplicate for seamless loop -->
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/go/00ADD8" alt=""> Go</div>
+    <div class="marquee-item"><img src="https://www.vectorlogo.zone/logos/grpcio/grpcio-icon.svg" alt=""> gRPC</div>
+    <div class="marquee-item"><img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" alt=""> AWS</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/apachekafka/FFFFFF" alt=""> Kafka</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/kubernetes/326CE5" alt=""> Kubernetes</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/terraform/844FBA" alt=""> Terraform</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/docker/2496ED" alt=""> Docker</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt=""> PostgreSQL</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/redis/FF4438" alt=""> Redis</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/mongodb/47A248" alt=""> MongoDB</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt=""> MySQL</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/rabbitmq/FF6600" alt=""> RabbitMQ</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/prometheus/E6522C" alt=""> Prometheus</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/grafana/F46800" alt=""> Grafana</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/gitlab/FC6D26" alt=""> GitLab</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/snowflake/29B5E8" alt=""> Snowflake</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/python/3776AB" alt=""> Python</div>
+    <div class="marquee-item"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpolygon fill='%234285F4' points='24,2 42,13 42,35 24,46 6,35 6,13'/%3E%3Cpolygon fill='%2334A853' points='24,10 36,17 36,31 24,38 12,31 12,17'/%3E%3Cpolygon fill='%23FBBC05' points='24,18 30,22 30,28 24,32 18,28 18,22'/%3E%3C/svg%3E" alt=""> Protobuf</div>
+    <div class="marquee-item"><img src="https://cdn.simpleicons.org/github/FFFFFF" alt=""> GitHub</div>
+  </div>
+</div>
+
 <!-- ABOUT -->
 <section id="about">
   <div class="wrap">
-    <p class="section-label">// about</p>
+    <p class="section-label">About</p>
     <h2 class="section-title">Building backends that scale in production</h2>
     <p class="section-desc">
       I specialize in Go microservices, event-driven architectures, and AWS platform engineering. Currently at Sony (Cloud Raptor) building shared libraries, observability platforms, and multi-account secrets rotation. Previously shipped high-throughput systems at Gojek and OTT backends at Multitv.
@@ -834,14 +1130,14 @@
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="wrap">
-    <p class="section-label">// experience</p>
+    <p class="section-label">Experience</p>
     <h2 class="section-title">Where I've built</h2>
     <p class="section-desc">Consulting and product engineering across fintech-scale ride-hailing, media streaming, and enterprise platform teams.</p>
 
     <div class="timeline">
 
       <div class="exp-item">
-        <div class="exp-dot">🎮</div>
+        <div class="exp-dot">01</div>
         <div class="exp-card">
           <div class="exp-header">
             <div>
@@ -858,15 +1154,20 @@
             <li>Terraform smoke plans with live AWS checks — <strong>95% deployment risk reduction</strong></li>
           </ul>
           <div class="exp-tags">
-            <span class="tag">Go</span><span class="tag">Kafka</span><span class="tag">Snowflake</span>
-            <span class="tag">Step Functions</span><span class="tag">Terraform</span><span class="tag">EKS</span>
-            <span class="tag">Grafana</span><span class="tag">Protobuf</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/go/00ADD8" alt="">Go</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/apachekafka/FFFFFF" alt="">Kafka</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/snowflake/29B5E8" alt="">Snowflake</span>
+            <span class="tag-icon"><img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" alt="">Step Fn</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/terraform/844FBA" alt="">Terraform</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/kubernetes/326CE5" alt="">EKS</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/grafana/F46800" alt="">Grafana</span>
+            <span class="tag-icon"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpolygon fill='%234285F4' points='24,2 42,13 42,35 24,46 6,35 6,13'/%3E%3Cpolygon fill='%2334A853' points='24,10 36,17 36,31 24,38 12,31 12,17'/%3E%3Cpolygon fill='%23FBBC05' points='24,18 30,22 30,28 24,32 18,28 18,22'/%3E%3C/svg%3E" alt="">Protobuf</span>
           </div>
         </div>
       </div>
 
       <div class="exp-item">
-        <div class="exp-dot">🛵</div>
+        <div class="exp-dot">02</div>
         <div class="exp-card">
           <div class="exp-header">
             <div>
@@ -883,14 +1184,18 @@
             <li>Protobuf vendoring via ProtoVend across <strong>15+ teams</strong></li>
           </ul>
           <div class="exp-tags">
-            <span class="tag">Go</span><span class="tag">gRPC</span><span class="tag">Kafka</span>
-            <span class="tag">Redis</span><span class="tag">PostgreSQL</span><span class="tag">Prometheus</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/go/00ADD8" alt="">Go</span>
+            <span class="tag-icon"><img src="https://www.vectorlogo.zone/logos/grpcio/grpcio-icon.svg" alt="">gRPC</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/apachekafka/FFFFFF" alt="">Kafka</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/redis/FF4438" alt="">Redis</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="">PostgreSQL</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/prometheus/E6522C" alt="">Prometheus</span>
           </div>
         </div>
       </div>
 
       <div class="exp-item">
-        <div class="exp-dot">📺</div>
+        <div class="exp-dot">03</div>
         <div class="exp-card">
           <div class="exp-header">
             <div>
@@ -906,14 +1211,18 @@
             <li>Razorpay, Apple, Google billing — payment failures down <strong>40%</strong></li>
           </ul>
           <div class="exp-tags">
-            <span class="tag">Go</span><span class="tag">gRPC</span><span class="tag">MySQL</span>
-            <span class="tag">MongoDB</span><span class="tag">RabbitMQ</span><span class="tag">AWS</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/go/00ADD8" alt="">Go</span>
+            <span class="tag-icon"><img src="https://www.vectorlogo.zone/logos/grpcio/grpcio-icon.svg" alt="">gRPC</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt="">MySQL</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/mongodb/47A248" alt="">MongoDB</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/rabbitmq/FF6600" alt="">RabbitMQ</span>
+            <span class="tag-icon"><img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" alt="">AWS</span>
           </div>
         </div>
       </div>
 
       <div class="exp-item">
-        <div class="exp-dot">⚙️</div>
+        <div class="exp-dot">04</div>
         <div class="exp-card">
           <div class="exp-header">
             <div>
@@ -927,7 +1236,9 @@
             <li>Designed data models and API contracts for asset register, assign, and audit flows</li>
           </ul>
           <div class="exp-tags">
-            <span class="tag">Go</span><span class="tag">Gin</span><span class="tag">MySQL</span><span class="tag">REST</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/go/00ADD8" alt="">Go</span>
+            <span class="tag-icon"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt="">MySQL</span>
+            <span class="tag-icon">REST</span>
           </div>
         </div>
       </div>
@@ -939,51 +1250,86 @@
 <!-- PROJECTS -->
 <section id="projects">
   <div class="wrap">
-    <p class="section-label">// system design</p>
+    <p class="section-label">Projects</p>
     <h2 class="section-title">Featured systems</h2>
     <p class="section-desc">Architecture highlights from production systems I've designed and shipped.</p>
 
     <div class="projects-grid">
 
       <div class="project-card featured">
-        <div class="project-icon">🔐</div>
+        <div class="project-icon">SEC</div>
         <h3>Secrets Rotation Hub-Spoke</h3>
         <div class="company">Sony · Multi-Account AWS</div>
         <p>Central orchestration with Step Functions, DynamoDB registry, and per-provider Lambda workers (Grafana, GitLab, Mesh Konnect, Confluent). Config digests, fencing tokens, and create-before-delete safety. Terraform smoke runbooks across Platform, Payment, Security, and Platform-Infra accounts.</p>
         <span class="project-metric">95% deployment risk reduction · 8/8 Grafana smokes</span>
         <div class="arch-line">Hub SFN → DynamoDB lock → SQS → Worker Lambda → Provider API → SM AWSPENDING → AWSCURRENT</div>
+        <div class="project-stack">
+          <span class="stack-icon" title="AWS"><img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" alt="AWS"></span>
+          <span class="stack-icon" title="Terraform"><img src="https://cdn.simpleicons.org/terraform/844FBA" alt="Terraform"></span>
+          <span class="stack-icon" title="Python"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python"></span>
+          <span class="stack-icon" title="Grafana"><img src="https://cdn.simpleicons.org/grafana/F46800" alt="Grafana"></span>
+          <span class="stack-icon" title="GitLab"><img src="https://cdn.simpleicons.org/gitlab/FC6D26" alt="GitLab"></span>
+          <span class="stack-icon" title="Kubernetes"><img src="https://cdn.simpleicons.org/kubernetes/326CE5" alt="K8s"></span>
+        </div>
       </div>
 
       <div class="project-card">
-        <div class="project-icon">📊</div>
+        <div class="project-icon">ETL</div>
         <h3>Snowflake → Kafka Pipeline</h3>
         <div class="company">Sony · Revenue Recognition</div>
         <p>Batch extract from Snowflake via intser-common StructScan, transform to Protobuf events, publish to Kafka for 50+ downstream consumers with schema-stable contracts.</p>
         <span class="project-metric">50+ consumers · Protobuf schema</span>
+        <div class="project-stack">
+          <span class="stack-icon" title="Go"><img src="https://cdn.simpleicons.org/go/00ADD8" alt="Go"></span>
+          <span class="stack-icon" title="Snowflake"><img src="https://cdn.simpleicons.org/snowflake/29B5E8" alt="Snowflake"></span>
+          <span class="stack-icon" title="Kafka"><img src="https://cdn.simpleicons.org/apachekafka/FFFFFF" alt="Kafka"></span>
+          <span class="stack-icon" title="Protobuf"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpolygon fill='%234285F4' points='24,2 42,13 42,35 24,46 6,35 6,13'/%3E%3Cpolygon fill='%2334A853' points='24,10 36,17 36,31 24,38 12,31 12,17'/%3E%3Cpolygon fill='%23FBBC05' points='24,18 30,22 30,28 24,32 18,28 18,22'/%3E%3C/svg%3E" alt="Protobuf"></span>
+        </div>
       </div>
 
       <div class="project-card">
-        <div class="project-icon">📈</div>
+        <div class="project-icon">OBS</div>
         <h3>ops-metrics-platform</h3>
         <div class="company">Sony · DORA Observability</div>
         <p>Go collectors pulling deployment and reliability data from GitLab, ArgoCD, and Grafana APIs into Loki/Mimir. EKS CronJobs + ARM64 Lambda on SQS with DLQ.</p>
         <span class="project-metric">EKS + Lambda ARM64 · Grafana Cloud</span>
+        <div class="project-stack">
+          <span class="stack-icon" title="Go"><img src="https://cdn.simpleicons.org/go/00ADD8" alt="Go"></span>
+          <span class="stack-icon" title="Kubernetes"><img src="https://cdn.simpleicons.org/kubernetes/326CE5" alt="K8s"></span>
+          <span class="stack-icon" title="AWS"><img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" alt="AWS"></span>
+          <span class="stack-icon" title="Grafana"><img src="https://cdn.simpleicons.org/grafana/F46800" alt="Grafana"></span>
+          <span class="stack-icon" title="GitLab"><img src="https://cdn.simpleicons.org/gitlab/FC6D26" alt="GitLab"></span>
+        </div>
       </div>
 
       <div class="project-card">
-        <div class="project-icon">🏎️</div>
+        <div class="project-icon">INC</div>
         <h3>Driver Incentives Platform</h3>
         <div class="company">Gojek · 8+ Microservices</div>
         <p>HLD for reward calculation at scale — gRPC internal comms, Kafka event log, Redis hot cache, PostgreSQL source of truth. Idempotent pipelines with goroutine worker pools.</p>
         <span class="project-metric">10K+ RPS · P99 &lt; 50ms</span>
+        <div class="project-stack">
+          <span class="stack-icon" title="Go"><img src="https://cdn.simpleicons.org/go/00ADD8" alt="Go"></span>
+          <span class="stack-icon" title="gRPC"><img src="https://www.vectorlogo.zone/logos/grpcio/grpcio-icon.svg" alt="gRPC"></span>
+          <span class="stack-icon" title="Kafka"><img src="https://cdn.simpleicons.org/apachekafka/FFFFFF" alt="Kafka"></span>
+          <span class="stack-icon" title="Redis"><img src="https://cdn.simpleicons.org/redis/FF4438" alt="Redis"></span>
+          <span class="stack-icon" title="PostgreSQL"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL"></span>
+        </div>
       </div>
 
       <div class="project-card">
-        <div class="project-icon">🎬</div>
+        <div class="project-icon">OTT</div>
         <h3>OTT Streaming Backend</h3>
         <div class="company">Multitv · ALT Balaji</div>
         <p>Multi-tenant REST/gRPC APIs with Redis caching, HMAC CDN auth, RabbitMQ async jobs. Live streaming, VOD, and subscription billing for 10M+ users.</p>
         <span class="project-metric">10M+ users · 99.95% uptime</span>
+        <div class="project-stack">
+          <span class="stack-icon" title="Go"><img src="https://cdn.simpleicons.org/go/00ADD8" alt="Go"></span>
+          <span class="stack-icon" title="MySQL"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL"></span>
+          <span class="stack-icon" title="MongoDB"><img src="https://cdn.simpleicons.org/mongodb/47A248" alt="MongoDB"></span>
+          <span class="stack-icon" title="RabbitMQ"><img src="https://cdn.simpleicons.org/rabbitmq/FF6600" alt="RabbitMQ"></span>
+          <span class="stack-icon" title="AWS"><img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" alt="AWS"></span>
+        </div>
       </div>
 
     </div>
@@ -993,9 +1339,32 @@
 <!-- SKILLS -->
 <section id="skills">
   <div class="wrap">
-    <p class="section-label">// skills</p>
+    <p class="section-label">Skills</p>
     <h2 class="section-title">Technical toolkit</h2>
     <p class="section-desc">Deep in Go and distributed systems. Comfortable across the full stack from API design to Terraform and on-call.</p>
+
+    <div class="skill-tiles">
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/go/00ADD8" alt="Go" loading="lazy"><span>Go</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" loading="lazy"><span>Python</span></div>
+      <div class="skill-tile"><img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" alt="AWS" loading="lazy"><span>AWS</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/apachekafka/FFFFFF" alt="Kafka" loading="lazy"><span>Kafka</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/kubernetes/326CE5" alt="K8s" loading="lazy"><span>Kubernetes</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" loading="lazy"><span>Docker</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/terraform/844FBA" alt="Terraform" loading="lazy"><span>Terraform</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" loading="lazy"><span>PostgreSQL</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/redis/FF4438" alt="Redis" loading="lazy"><span>Redis</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/mongodb/47A248" alt="MongoDB" loading="lazy"><span>MongoDB</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL" loading="lazy"><span>MySQL</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/rabbitmq/FF6600" alt="RabbitMQ" loading="lazy"><span>RabbitMQ</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/snowflake/29B5E8" alt="Snowflake" loading="lazy"><span>Snowflake</span></div>
+      <div class="skill-tile"><img src="https://www.vectorlogo.zone/logos/grpcio/grpcio-icon.svg" alt="gRPC" loading="lazy"><span>gRPC</span></div>
+      <div class="skill-tile"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpolygon fill='%234285F4' points='24,2 42,13 42,35 24,46 6,35 6,13'/%3E%3Cpolygon fill='%2334A853' points='24,10 36,17 36,31 24,38 12,31 12,17'/%3E%3Cpolygon fill='%23FBBC05' points='24,18 30,22 30,28 24,32 18,28 18,22'/%3E%3C/svg%3E" alt="Protobuf" loading="lazy"><span>Protobuf</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/prometheus/E6522C" alt="Prometheus" loading="lazy"><span>Prometheus</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/grafana/F46800" alt="Grafana" loading="lazy"><span>Grafana</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/gitlab/FC6D26" alt="GitLab" loading="lazy"><span>GitLab</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/github/FFFFFF" alt="GitHub" loading="lazy"><span>GitHub</span></div>
+      <div class="skill-tile"><img src="https://cdn.simpleicons.org/linux/FCC624" alt="Linux" loading="lazy"><span>Linux</span></div>
+    </div>
 
     <div class="skills-grid">
       <div class="skill-group">
@@ -1084,9 +1453,9 @@
 <!-- EDUCATION + CONTACT -->
 <section id="contact">
   <div class="wrap">
-    <p class="section-label">// connect</p>
-    <h2 class="section-title">Let's talk</h2>
-    <p class="section-desc">Open to backend engineering roles in distributed systems, platform engineering, and high-scale Go teams.</p>
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Contact</h2>
+    <p class="section-desc">Backend engineering roles in distributed systems, platform engineering, and production Go teams.</p>
 
     <div class="bottom-grid">
       <div class="info-card">
