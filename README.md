@@ -10,7 +10,7 @@ After enabling GitHub Pages, your portfolio will be available at:
 
 ## Setup GitHub Pages
 
-1. Push this repo to `github.com/rajat2130/rajat-portfolio`
+1. Push this repo to `github.com/example/example-portfolio`
 2. Go to **Settings → Pages**
 3. Source: **Deploy from branch** → `main` → `/ (root)`
 4. Save — site goes live in ~1–2 minutes
@@ -25,7 +25,7 @@ After enabling GitHub Pages, your portfolio will be available at:
 | File | Purpose |
 |------|---------|
 | `index.html` | Portfolio website (single page) |
-| `Rajat_Resume.pdf` | Downloadable resume |
+| `example_Resume.pdf` | Downloadable resume |
 
 ## About
 
